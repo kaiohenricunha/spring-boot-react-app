@@ -36,14 +36,6 @@ This is a full-stack web application built using Spring Boot for the backend and
     cd spring-boot-react-app
     ```
 
-2. **Install the frontend dependencies:**
-
-    ```bash
-    cd frontend
-    npm install
-    cd ..
-    ```
-
 ## Running the Application
 
 1. **Build the Application**
@@ -88,6 +80,6 @@ The backend exposes the following RESTful endpoints:
 
 If Spring Security is enabled, you may have a default generated password. The default username is `user`, and the password is printed in the console when the application starts:
 
-```
+```bash
 Using generated security password: <your-generated-password>
 ```
