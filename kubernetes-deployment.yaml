@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: springboot-react-app
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: app-data-pvc
+  namespace: springboot-react-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-react-app
+  namespace: springboot-react-app
+  labels:
+    app: spring-boot-react-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring-boot-react-app
+  template:
+    metadata:
+      labels:
+        app: spring-boot-react-app
+    spec:
+      containers:
+      - name: spring-boot-react-app
+        image: kaiohenricunha/spring-boot-react-app:latest
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: app-data
+          mountPath: /app/data
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+      - name: app-data
+        persistentVolumeClaim:
+          claimName: app-data-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-react-app
+  namespace: springboot-react-app
+  labels:
+    app: spring-boot-react-app
+spec:
+  selector:
+    app: spring-boot-react-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
