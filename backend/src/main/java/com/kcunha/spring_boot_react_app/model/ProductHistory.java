@@ -4,39 +4,32 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Version;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.Min;
+
+import java.time.LocalDateTime;
 
 @Entity
-public class Product {
+public class ProductHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotNull
-    @Size(min = 2, max = 100, message = "Product name must be between 2 and 100 characters")
+    private Long productId;
     private String name;
-
-    @Size(max = 255, message = "Description can't be longer than 255 characters")
     private String description;
-
-    @NotNull
-    @Min(value = 0, message = "Price must be a positive number")
     private Double price;
-
-    @Version
-    private Long version;
+    private String modifiedBy;
+    private LocalDateTime modifiedDate;
 
     // Constructors
-    public Product() {}
+    public ProductHistory() {}
 
-    public Product(String name, String description, Double price) {
+    public ProductHistory(Long productId, String name, String description, Double price, String modifiedBy, LocalDateTime modifiedDate) {
+        this.productId = productId;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.modifiedBy = modifiedBy;
+        this.modifiedDate = modifiedDate;
     }
 
     // Getters and Setters
@@ -46,6 +39,14 @@ public class Product {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -72,11 +73,19 @@ public class Product {
         this.price = price;
     }
 
-    public Long getVersion() {
-        return version;
+    public String getModifiedBy() {
+        return modifiedBy;
     }
 
-    public void setVersion(Long version) {
-        this.version = version;
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public LocalDateTime getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(LocalDateTime modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 }
