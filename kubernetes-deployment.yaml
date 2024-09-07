@@ -23,7 +23,7 @@ metadata:
   labels:
     app: spring-boot-react-app
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: spring-boot-react-app
@@ -41,9 +41,11 @@ spec:
         - name: app-data
           mountPath: /app/data
         resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
           limits:
-            memory: "512Mi"
-            cpu: "500m"
+            memory: "256Mi"
       volumes:
       - name: app-data
         persistentVolumeClaim:
@@ -64,3 +66,29 @@ spec:
       port: 8080
       targetPort: 8080
   type: LoadBalancer
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: spring-boot-react-app-hpa
+  namespace: springboot-react-app
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: spring-boot-react-app
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 100 # % o requests
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 85
