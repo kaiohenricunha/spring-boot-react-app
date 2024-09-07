@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: spring-boot-react-app
+
+  security:
+    enabled: false  # If you want to keep this flag for reference
+
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+  web:
+    cors:
+      allowed-origins: http://localhost:3000
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.kcunha: DEBUG
+
+# Inventory Service URL
+inventory:
+  service:
+    url: http://inventory-service:8081/api/inventory
+
+
+server:
+  servlet:
+    logging:
+      request-details: true
+
+# Optional External Database Configuration (uncomment when needed)
+# datasource:
+#   url: jdbc:postgresql://<db-host>:<db-port>/<db-name>
+#   username: <db-username>
+#   password: <db-password>
+# jpa:
+#   hibernate:
+#     ddl-auto: update
