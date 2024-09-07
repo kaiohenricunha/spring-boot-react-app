@@ -30,6 +30,9 @@ public class Product {
     @Version
     private Long version;
 
+    // New field for stock
+    private Integer stock;
+
     // Constructors
     public Product() {}
 
@@ -78,5 +81,13 @@ public class Product {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 }

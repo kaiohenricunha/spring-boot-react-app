@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
 
@@ -11,9 +13,13 @@ import com.kcunha.spring_boot_react_app.model.Product;
 import com.kcunha.spring_boot_react_app.model.ProductHistory;
 import com.kcunha.spring_boot_react_app.repository.ProductRepository;
 import com.kcunha.spring_boot_react_app.repository.ProductHistoryRepository;
+import com.kcunha.spring_boot_react_app.dto.InventoryResponse;
 
 @Service
 public class ProductService {
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Autowired
     private ProductRepository productRepository;
@@ -21,14 +27,30 @@ public class ProductService {
     @Autowired
     private ProductHistoryRepository productHistoryRepository;
 
+    @Value("${inventory.service.url}")
+    private String inventoryServiceUrl;    
+
     // Retrieve all products with pagination
     public Page<Product> getAllProducts(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
 
-    // Retrieve product by id
+    // Retrieve product by id with inventory info
     public Product getProductById(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+
+        // Fetch inventory info from Inventory Service
+        Integer stock = getInventoryByProductId(product.getId());
+        product.setStock(stock); // Assuming `Product` has a `stock` field
+
+        return product;
+    }
+
+    // Get the inventory for a product from Inventory Service
+    private Integer getInventoryByProductId(Long productId) {
+        String url = inventoryServiceUrl + "/" + productId;
+        InventoryResponse response = restTemplate.getForObject(url, InventoryResponse.class);
+        return response != null ? response.getStock() : 0;
     }
 
     // Create a new product

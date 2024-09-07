@@ -1,5 +1,12 @@
 package com.kcunha.spring_boot_react_app;
 
+import com.kcunha.spring_boot_react_app.dto.InventoryResponse;
+import com.kcunha.spring_boot_react_app.model.Product;
+import com.kcunha.spring_boot_react_app.model.ProductHistory;
+import com.kcunha.spring_boot_react_app.repository.ProductRepository;
+import com.kcunha.spring_boot_react_app.repository.ProductHistoryRepository;
+import com.kcunha.spring_boot_react_app.service.ProductService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,20 +16,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Optional;
-import java.util.List;
-import java.util.ArrayList;
-
-import com.kcunha.spring_boot_react_app.model.Product;
-import com.kcunha.spring_boot_react_app.model.ProductHistory;
-import com.kcunha.spring_boot_react_app.repository.ProductRepository;
-import com.kcunha.spring_boot_react_app.repository.ProductHistoryRepository;
-import com.kcunha.spring_boot_react_app.service.ProductService;
 
 @SpringBootTest
 public class ProductServiceTests {
@@ -35,6 +37,9 @@ public class ProductServiceTests {
 
     @MockBean
     private ProductHistoryRepository productHistoryRepository;
+
+    @MockBean
+    private RestTemplate restTemplate;
 
     private Product product;
     private Pageable pageable;
@@ -56,14 +61,22 @@ public class ProductServiceTests {
         verify(productRepository, times(1)).save(product);
     }
 
-    // Test retrieving a product by ID
+    // Test retrieving a product by ID and mocking inventory service
     @Test
     public void testGetProductById() {
         when(productRepository.findById(1L)).thenReturn(Optional.of(product));
+
+        // Mock RestTemplate call to Inventory Service
+        InventoryResponse mockInventoryResponse = new InventoryResponse(1L, 50);
+        when(restTemplate.getForObject("http://inventory-service:8081/api/inventory/1", InventoryResponse.class))
+            .thenReturn(mockInventoryResponse);
+
         Product foundProduct = productService.getProductById(1L);
         assertNotNull(foundProduct);
         assertEquals(1L, foundProduct.getId());
+        assertEquals(50, foundProduct.getStock()); // Verify that the stock was set
         verify(productRepository, times(1)).findById(1L);
+        verify(restTemplate, times(1)).getForObject("http://inventory-service:8081/api/inventory/1", InventoryResponse.class);
     }
 
     // Test updating a product and saving history
