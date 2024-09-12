@@ -8,29 +8,36 @@ import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Min;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
+@Schema(description = "Represents a product in the system")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Unique identifier of the product", example = "1", required = true)
     private Long id;
 
     @NotNull
     @Size(min = 2, max = 100, message = "Product name must be between 2 and 100 characters")
+    @Schema(description = "Name of the product", example = "Laptop", required = true)
     private String name;
 
     @Size(max = 255, message = "Description can't be longer than 255 characters")
+    @Schema(description = "Description of the product", example = "A high-end gaming laptop")
     private String description;
 
     @NotNull
     @Min(value = 0, message = "Price must be a positive number")
+    @Schema(description = "Price of the product", example = "999.99", required = true)
     private Double price;
 
     @Version
+    @Schema(description = "Version of the product for optimistic locking", example = "1")
     private Long version;
 
-    // New field for stock
+    @Schema(description = "Current stock of the product", example = "50")
     private Integer stock;
 
     // Constructors

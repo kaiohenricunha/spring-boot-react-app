@@ -4,20 +4,35 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Schema(description = "Represents the history of a product")
 public class ProductHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Unique identifier of the history record", example = "1", required = true)
     private Long id;
+
+    @Schema(description = "Product ID associated with this history record", example = "1", required = true)
     private Long productId;
+
+    @Schema(description = "Name of the product at the time of change", example = "Laptop", required = true)
     private String name;
+
+    @Schema(description = "Description of the product at the time of change", example = "A high-end gaming laptop")
     private String description;
+
+    @Schema(description = "Price of the product at the time of change", example = "999.99", required = true)
     private Double price;
+
+    @Schema(description = "User who made the modification", example = "admin", required = true)
     private String modifiedBy;
+
+    @Schema(description = "Date and time when the product was modified", example = "2024-09-11T10:15:30")
     private LocalDateTime modifiedDate;
 
     // Constructors
