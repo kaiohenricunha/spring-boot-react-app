@@ -21,6 +21,10 @@ Esta é uma aplicação web full-stack usando Spring Boot no backend e React no 
 
     Acesse `http://localhost:8080/swagger-ui.html` para explorar e testar as APIs.
 
+## Integração com RabbitMQ
+
+RabbitMQ é utilizado neste projeto para facilitar a comunicação entre microserviços. Especificamente, quando um produto é criado, atualizado ou deletado, uma mensagem é enviada ao RabbitMQ para atualizar o inventário em outro microserviço (`inventory-service`). As informações de inventário (como o ID do produto e o estoque) são transferidas através das filas do RabbitMQ, garantindo uma comunicação assíncrona e confiável entre os serviços.
+
 ## Endpoints da API
 
 - **GET /api/products**: Lista todos os produtos.

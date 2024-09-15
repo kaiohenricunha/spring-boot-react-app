@@ -1,13 +1,18 @@
-package com.kcunha.spring_boot_react_app.dto;
+package com.kcunha.inventory_service.dto;
 
 import java.io.Serializable;
 
 public class InventoryResponse implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Long productId;
     private Integer stock;
 
-    // Constructor
+    // Default constructor
+    public InventoryResponse() {}
+
+    // Constructor with parameters
     public InventoryResponse(Long productId, Integer stock) {
         this.productId = productId;
         this.stock = stock;
@@ -28,5 +33,13 @@ public class InventoryResponse implements Serializable {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    @Override
+    public String toString() {
+        return "InventoryResponse{" +
+                "productId=" + productId +
+                ", stock=" + stock +
+                '}';
     }
 }

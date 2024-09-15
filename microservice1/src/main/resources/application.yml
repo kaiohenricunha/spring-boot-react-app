@@ -17,6 +17,11 @@ spring:
     exclude: 
       - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
       - org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: user
+    password: password
 
 eureka:
   client:
