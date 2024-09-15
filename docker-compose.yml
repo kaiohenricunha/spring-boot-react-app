@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  eureka-server:
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    image: kaiohenricunha/eureka-server:latest
+    ports:
+      - '8761:8761'
+
+  microservice1:
+    build:
+      context: ./microservice1
+      dockerfile: Dockerfile
+    image: kaiohenricunha/microservice1:latest
+    ports:
+      - '8080:8080'
+    depends_on:
+      - eureka-server
+      # - rabbitmq
+
+  microservice2:
+    build:
+      context: ./microservice2
+      dockerfile: Dockerfile
+    image: kaiohenricunha/microservice2:latest
+    ports:
+      - '8081:8081'
+    depends_on:
+      - eureka-server
+      # - rabbitmq
+
+  # rabbitmq:
+  #   image: rabbitmq:3-management
+  #   ports:
+  #     - '5672:5672'
+  #     - '15672:15672' # RabbitMQ Management UI
+  #   environment:
+  #     RABBITMQ_DEFAULT_USER: user
+  #     RABBITMQ_DEFAULT_PASS: password

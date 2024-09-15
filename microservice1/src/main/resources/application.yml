@@ -1,0 +1,42 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  security:
+    enabled: false
+
+spring:
+  application:
+    name: microservice1
+
+  security:
+    enabled: false
+
+  autoconfigure:
+    exclude: 
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+    registry-fetch-interval-seconds: 10
+    initial-instance-info-replication-interval-seconds: 0
+    healthcheck:
+      enabled: true
+
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.kcunha: DEBUG
+
+server:
+  servlet:
+    logging:
+      request-details: true

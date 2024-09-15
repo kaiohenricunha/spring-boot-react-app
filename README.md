@@ -1,11 +1,11 @@
 
 # Spring Boot React App
 
-This is a full-stack web application built using Spring Boot for the backend and React for the frontend. The backend provides RESTful APIs to manage products, while the frontend offers a user interface to interact with these APIs. The backend is configured to serve the frontend build files.
+This is a full-stack web application built using Spring Boot for the microservice1 and React for the frontend. The microservice1 provides RESTful APIs to manage products, while the frontend offers a user interface to interact with these APIs. The microservice1 is configured to serve the frontend build files.
 
 ## Table of Contents
 
-- [Spring Boot React App](#spring-boot-react-app)
+- [Spring Boot React App](#microservice1)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Prerequisites](#prerequisites)
@@ -29,8 +29,8 @@ This is a full-stack web application built using Spring Boot for the backend and
 ## Features
 
 - **Product Management**: Add, view, and delete products.
-- **RESTful APIs**: Backend provides a set of APIs to manage products.
-- **Frontend Serving**: Backend is configured to serve the frontend React app.
+- **RESTful APIs**: microservice1 provides a set of APIs to manage products.
+- **Frontend Serving**: microservice1 is configured to serve the frontend React app.
 
 ## Prerequisites
 
@@ -43,8 +43,8 @@ This is a full-stack web application built using Spring Boot for the backend and
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/yourusername/spring-boot-react-app.git
-    cd spring-boot-react-app
+    git clone https://github.com/yourusername/microservice1.git
+    cd microservice1
     ```
 
 ## Running the Application
@@ -58,22 +58,22 @@ This is a full-stack web application built using Spring Boot for the backend and
    ```
 
    This command will:
-   - Build the React frontend and place the production files in the `backend/src/main/resources/static` directory.
-   - Build the Spring Boot backend, which will automatically serve the frontend build files.
+   - Build the React frontend and place the production files in the `microservice1/src/main/resources/static` directory.
+   - Build the Spring Boot microservice1, which will automatically serve the frontend build files.
 
-2. **Run the Backend with the Frontend**
+2. **Run the microservice1 with the Frontend**
 
-   After the build is successful, you can start the backend which will also serve the frontend:
+   After the build is successful, you can start the microservice1 which will also serve the frontend:
 
    ```bash
-   java -jar backend/build/libs/backend-0.0.1-SNAPSHOT.jar
+   java -jar microservice1/build/libs/microservice1-0.0.1-SNAPSHOT.jar
    ```
 
-   This will start the Spring Boot application on `http://localhost:8080`. The React frontend will be served from the backend automatically.
+   This will start the Spring Boot application on `http://localhost:8080`. The React frontend will be served from the microservice1 automatically.
 
 ## Running Tests and Viewing Results
 
-This project includes unit and integration tests to ensure the correctness of the application. The tests are written using JUnit and Mockito for the backend.
+This project includes unit and integration tests to ensure the correctness of the application. The tests are written using JUnit and Mockito for the microservice1.
 
 ### Running Tests
 
@@ -83,13 +83,13 @@ To run all tests, use the following command from the root of your project:
 ./gradlew test
 ```
 
-This command will execute all tests in the backend module, including unit tests and integration tests.
+This command will execute all tests in the microservice1 module, including unit tests and integration tests.
 
 ### Viewing test results
 
 After running the tests, you can view a detailed report of the test results. The test results are automatically generated and stored in the following location:
 
-`backend/build/reports/tests/test/index.html`.
+`microservice1/build/reports/tests/test/index.html`.
 
 ## Usage
 
@@ -100,7 +100,7 @@ After running the tests, you can view a detailed report of the test results. The
 
 ### API Endpoints
 
-The backend exposes the following RESTful endpoints:
+The microservice1 exposes the following RESTful endpoints:
 
 - **GET /api/products**: Get all products.
 - **GET /api/products/{id}**: Get a product by its ID.

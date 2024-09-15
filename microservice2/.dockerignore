@@ -1,0 +1,35 @@
+# Gradle files
+.gradle
+build
+out
+!build/libs/microservice1-0.0.1-SNAPSHOT.jar
+
+# Eclipse files
+.classpath
+.project
+.settings/
+
+# IntelliJ files
+.idea
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git files
+.git
+.gitignore
+
+# Logs and temp files
+logs
+*.log
+tmp/
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Readme and documentation
+README.md

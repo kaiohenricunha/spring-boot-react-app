@@ -1,7 +1,7 @@
 
 # Aplicação Spring Boot com React
 
-Este é um aplicativo web full-stack construído usando Spring Boot para o backend e React para o frontend. O backend fornece APIs RESTful para gerenciar produtos, enquanto o frontend oferece uma interface de usuário para interagir com essas APIs. O backend está configurado para servir os arquivos de build do frontend.
+Este é um aplicativo web full-stack construído usando Spring Boot para o microservice1 e React para o frontend. O microservice1 fornece APIs RESTful para gerenciar produtos, enquanto o frontend oferece uma interface de usuário para interagir com essas APIs. O microservice1 está configurado para servir os arquivos de build do frontend.
 
 ## Índice
 
@@ -29,8 +29,8 @@ Este é um aplicativo web full-stack construído usando Spring Boot para o backe
 ## Funcionalidades
 
 - **Gerenciamento de Produtos**: Adicionar, visualizar e excluir produtos.
-- **APIs RESTful**: Backend fornece um conjunto de APIs para gerenciar produtos.
-- **Serviço de Frontend**: Backend está configurado para servir o app React no frontend.
+- **APIs RESTful**: microservice1 fornece um conjunto de APIs para gerenciar produtos.
+- **Serviço de Frontend**: microservice1 está configurado para servir o app React no frontend.
 
 ## Pré-requisitos
 
@@ -43,13 +43,13 @@ Este é um aplicativo web full-stack construído usando Spring Boot para o backe
 1. **Clone o repositório:**
 
     ```bash
-    git clone https://github.com/seu-usuario/spring-boot-react-app.git
-    cd spring-boot-react-app
+    git clone https://github.com/seu-usuario/microservice1.git
+    cd microservice1
     ```
 
 2. **Construa o projeto:**
 
-    - Para o backend (Spring Boot):
+    - Para o microservice1 (Spring Boot):
 
       ```bash
       ./gradlew build
@@ -63,13 +63,13 @@ Este é um aplicativo web full-stack construído usando Spring Boot para o backe
       npm run build
       ```
 
-3. **Execute o backend:**
+3. **Execute o microservice1:**
 
     ```bash
     ./gradlew bootRun
     ```
 
-    O Spring Boot irá servir o aplicativo React como parte da aplicação backend.
+    O Spring Boot irá servir o aplicativo React como parte da aplicação microservice1.
 
 ## Executando a Aplicação
 
@@ -80,7 +80,7 @@ Este é um aplicativo web full-stack construído usando Spring Boot para o backe
 
 ### Executando Testes
 
-Para rodar testes automatizados, use o seguinte comando no backend:
+Para rodar testes automatizados, use o seguinte comando no microservice1:
 
 ```bash
 ./gradlew test
