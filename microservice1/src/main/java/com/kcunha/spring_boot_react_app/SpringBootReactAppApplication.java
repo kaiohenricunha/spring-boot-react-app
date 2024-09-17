@@ -5,6 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.client.RestTemplate;
+
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
+
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 
@@ -29,5 +33,10 @@ public class SpringBootReactAppApplication {
     @Profile("test")
     public RestTemplate restTemplateForTests() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public OpenTelemetry openTelemetry() {
+        return AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
     }
 }
