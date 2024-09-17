@@ -39,6 +39,22 @@ dependencies {
     implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
     implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
 
+    // OpenTelemetry Core and SDK
+    implementation 'io.opentelemetry:opentelemetry-api'
+    implementation 'io.opentelemetry:opentelemetry-sdk'
+    implementation 'io.opentelemetry:opentelemetry-sdk-extension-autoconfigure'
+    implementation 'io.opentelemetry.semconv:opentelemetry-semconv:1.27.0-alpha'
+
+    // OpenTelemetry Logging Exporter
+    implementation 'io.opentelemetry:opentelemetry-exporter-logging'
+
+    // Logging instrumentation for MDC in Logback
+    runtimeOnly 'io.opentelemetry.instrumentation:opentelemetry-logback-mdc-1.0:2.8.0-alpha'
+
+    // Retry and Context Support
+    implementation 'org.springframework.retry:spring-retry'
+    implementation 'org.springframework:spring-context-support'
+
     // Testing dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.h2database:h2' // Include H2 database for tests

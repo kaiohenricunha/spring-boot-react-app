@@ -1,4 +1,3 @@
-
 # Spring Boot App
 
 This is a web application using Spring Boot for the backend. The app allows managing products via RESTful APIs.
@@ -24,6 +23,21 @@ This is a web application using Spring Boot for the backend. The app allows mana
 ## RabbitMQ Integration
 
 RabbitMQ is used in this project to facilitate communication between microservices. Specifically, when a product is created, updated, or deleted, a message is sent to RabbitMQ to update the inventory in another microservice (`inventory-service`). The inventory information (such as product ID and stock) is transferred via RabbitMQ queues, ensuring asynchronous and reliable communication between services.
+
+## Logging and Tracing
+
+This application is instrumented with **OpenTelemetry** for distributed tracing and logging. Logs and traces can be used to monitor the flow of requests across microservices and are automatically exported to Jaeger for tracing and Loki for logging.
+
+### Logging
+
+- **Loki** is used as the logging backend. Logs from the services are collected by **Fluent Bit** and pushed to **Loki**.
+- OpenTelemetry auto-instruments logging to include contextual information like `trace_id` and `span_id`, making it easier to correlate log entries with traces.
+
+### Tracing with Jaeger
+
+- **Jaeger** is used as the tracing backend. The application exports traces via OpenTelemetry, and these traces can be visualized in Jaeger’s UI.
+- Each microservice is configured to send its traces to Jaeger using OpenTelemetry’s auto-instrumentation.
+- Visit Jaeger at `http://localhost:16686` to explore distributed traces and analyze request flows across microservices.
 
 ## Architecture Diagram
 
@@ -79,3 +93,7 @@ RabbitMQ is used in this project to facilitate communication between microservic
 - **Eureka Server Dashboard** (`http://localhost:8761`): This is the Eureka Server management interface. It displays all the registered microservices, their instances, and their statuses. Eureka is used for service discovery, allowing microservices to find and communicate with each other dynamically.
 
 - **RabbitMQ Management** (`http://localhost:15672`): This is the RabbitMQ management interface. It provides a visual dashboard to monitor queues, exchanges, and messages, as well as manage RabbitMQ settings such as users, connections, and channels.
+
+- **Jaeger UI** (`http://localhost:16686`): Jaeger provides an interface for distributed tracing, which can use it to analyze request traces and understand how requests flow between microservices.
+
+- **Grafana Dashboard** (`http://localhost:3000`): Grafana provides a visual interface for exploring metrics and logs. The Loki datasource is used to display the logs collected from the microservices on the "Explore" section.

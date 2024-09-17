@@ -35,6 +35,7 @@ public class SpringBootReactAppApplication {
         return new RestTemplate();
     }
 
+    // OpenTelemetry SDK initialization
     @Bean
     public OpenTelemetry openTelemetry() {
         return AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();

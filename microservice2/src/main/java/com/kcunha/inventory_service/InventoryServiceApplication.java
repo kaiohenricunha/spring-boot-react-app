@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
+
 @SpringBootApplication
 @EnableDiscoveryClient
 public class InventoryServiceApplication {
@@ -29,5 +32,11 @@ public class InventoryServiceApplication {
     @Profile("test")
     public RestTemplate restTemplateForTests() {
         return new RestTemplate();
+    }
+
+    // OpenTelemetry SDK initialization
+    @Bean
+    public OpenTelemetry openTelemetry() {
+        return AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
     }
 }

@@ -25,6 +25,8 @@ services:
       - OTEL_TRACES_EXPORTER=logging
       - OTEL_METRICS_EXPORTER=logging
       - OTEL_LOGS_EXPORTER=logging
+      - OTEL_EXPORTER_JAEGER_ENDPOINT=http://jaeger:14250
+      - OTEL_PROPAGATORS=tracecontext,baggage
     depends_on:
       - eureka-server
       - rabbitmq
@@ -36,6 +38,13 @@ services:
     image: kaiohenricunha/microservice2:latest
     ports:
       - '8081:8081'
+    environment:
+      - OTEL_SERVICE_NAME=microservice2
+      - OTEL_TRACES_EXPORTER=logging
+      - OTEL_METRICS_EXPORTER=logging
+      - OTEL_LOGS_EXPORTER=logging
+      - OTEL_EXPORTER_JAEGER_ENDPOINT=http://jaeger:14250
+      - OTEL_PROPAGATORS=tracecontext,baggage
     depends_on:
       - eureka-server
       - rabbitmq
